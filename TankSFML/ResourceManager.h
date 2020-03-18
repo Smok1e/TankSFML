@@ -3,16 +3,11 @@
 
 //----------------------------------------------------------------
 
-const int PATH_MAX = 256;
-
-//----------------------------------------------------------------
-
 enum Image
 
 {
 
 	ImageTank,
-	ImageTankBody,
 	ImageExplosion,
 	ImageEnemy,
 	ImageCoin,
@@ -21,6 +16,7 @@ enum Image
 	ImageIcon,
 	ImageMedkit,
 	ImageCursor,
+	ImageDebugCursor,
 
 	ImageAmount
 
@@ -148,7 +144,6 @@ Resource Resources[] = {
 //	Image number	   Image path        Frames Smooth
 
 	{ImageTank,        "Tank.png",        1         },
-	{ImageTankBody,    "TankBody.png",    1         },
 	{ImageExplosion,   "Explosion.bmp",   7,    true},
 	{ImageEnemy,       "Enemy.bmp",      72         },
 	{ImageCoin,        "Coin.bmp",        6         },
@@ -156,7 +151,8 @@ Resource Resources[] = {
 	{ImageFood,        "Food.bmp",        1,    true},
 	{ImageIcon,        "Icon.png",        1,        },
     {ImageMedkit,      "Medkit.bmp",      1         },
-	{ImageCursor,      "Cursor.png",      1         }
+	{ImageCursor,      "Cursor.png",      1         },
+	{ImageDebugCursor, "DebugCursor.png", 1         }
 	
 };
 

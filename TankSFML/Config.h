@@ -1,5 +1,5 @@
-double wWidth = 800;
-double wHeight = 800;
+const double wWidth = 800;
+const double wHeight = 800;
 
 const int OBJECTS_MAX = 500;
 
@@ -18,3 +18,5 @@ const int FOOD_SPAWNING_FREQ = 5;
 const int MEDKIT_SPAWNING_FREQ = 7;
 
 const int FPS_LIMIT = 60;
+
+const int PATH_MAX = 256;

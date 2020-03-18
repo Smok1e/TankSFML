@@ -142,11 +142,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h" />
-    <ClInclude Include="ExtraUtilits.h" />
     <ClInclude Include="FontManager.h" />
     <ClInclude Include="GameWND.h" />
     <ClInclude Include="HitTable.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="SoundManager.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Blur.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

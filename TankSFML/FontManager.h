@@ -79,7 +79,7 @@ sf::Font FontManager::getFont (int number)
 
 //----------------------------------------------------------------
 
-FontResource fonts[] = {
+FontResource Fonts[] = {
 
 	{FontArial,       "Arial.ttf"},
 	{FontVAGWorld, "VAGWorld.otf"}

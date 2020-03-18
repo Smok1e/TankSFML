@@ -1,14 +1,22 @@
-#define _EU_ALLOC_BREAK 36096
+#include "Config.h"
 #define _USE_MATH_DEFINES
 #define __PRETTY_FUNCTION__ __FUNCSIG__
+#define _RESOURCES "Resources\\"
 #define NOMINMAX
 #include <Windows.h>
-#include "Config.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <math.h>
 #include "ResourceManager.h"
 #include "FontManager.h"
-#include "ExtraUtilits.h"
+#include "SoundManager.h"
+#include "C:\Lib\ExtraUtilits\ExtraUtilits.h"
+
+using eu::rnd;
+
+//----------------------------------------------------------------
+
+int StartTime = GetTickCount ();
 
 //----------------------------------------------------------------
 
@@ -34,13 +42,11 @@ enum ObjectType
 
 //----------------------------------------------------------------
 
-double rnd (double from, double to);
-
-//----------------------------------------------------------------
-
 ResourceManager* ResManager;
 
 FontManager* FManager;
+
+SoundManager* SManager;
 
 struct ObjectManager;
 
@@ -513,6 +519,8 @@ struct ObjectManager
 
 	int level_;
 
+	sf::Image cursor_;
+
 	ObjectManager (sf::RenderWindow* window);
 
 	~ObjectManager ();
@@ -535,6 +543,8 @@ struct ObjectManager
 
 	int objectsAmount ();
 
+	void update ();
+
 	void run ();
 
 	void addScore ();
@@ -542,6 +552,8 @@ struct ObjectManager
 	void addScore (int score);
 
 	void setBackground (sf::Color background);
+
+	void setCursor (sf::Image * cursor);
 
 	void remove ();
 
@@ -553,7 +565,9 @@ ObjectManager::ObjectManager (sf::RenderWindow* window) :
 	window_  (window),
 
 	score_   (0),
-	level_   (0)
+	level_   (0),
+
+	cursor_  (ResManager -> getImage (ImageCursor))
 
 {}
 
@@ -566,6 +580,8 @@ ObjectManager::~ObjectManager ()
 }
 
 //----------------------------------------------------------------
+
+int run (sf::RenderWindow * window);
 
 double angle (double x0, double y0, double x1, double y1);
 
@@ -585,6 +601,8 @@ double sqr (double d);
 
 void pause (ObjectManager* manager);
 
+void debugMode (ObjectManager * manager);
+
 void Hit (AbstractObject* obj1, AbstractObject* obj2);
 
 //----------------------------------------------------------------
@@ -599,20 +617,33 @@ int main ()
 
 	sf::RenderWindow window (sf::VideoMode (wWidth, wHeight), "Tank");
 
-	ResourceManager resManager (Resources, "Resources\\Images");
+	ResourceManager resManager (Resources, _RESOURCES"Images");
 	ResManager = &resManager;
 
-	FontManager fontManager (fonts, "Resources\\Fonts");
+	FontManager fontManager (Fonts, _RESOURCES"Fonts");
 	FManager = &fontManager;
 
-	ObjectManager manager (&window);
+	SoundManager soundManager (Sounds, _RESOURCES"Sound");
+	SManager = &soundManager;
+
+	run (&window);
+
+}
+
+//----------------------------------------------------------------
+
+int run (sf::RenderWindow * window)
+
+{
+
+	ObjectManager manager (window);
 	manager.setBackground (sf::Color (40, 40, 40));
 
-	window.setFramerateLimit (FPS_LIMIT);
+	window -> setFramerateLimit (FPS_LIMIT);
 
 	sf::Image icon = ResManager->getImage (ImageIcon);
 
-	window.setIcon (icon.getSize ().x, icon.getSize ().y, icon.getPixelsPtr ());
+	window -> setIcon (icon.getSize ().x, icon.getSize ().y, icon.getPixelsPtr ());
 
 	Player* player = new Player{ wWidth / 2, wHeight / 2 };
 
@@ -620,23 +651,17 @@ int main ()
 
 	for (int n = 0; n < ENEMY_N; n++) manager.addObject (new Enemy);
 
-	sf::Image cur = ResManager->getImage (ImageCursor);
-	sf::Cursor cursor;
-	cursor.loadFromPixels (cur.getPixelsPtr (), sf::Vector2u (cur.getSize ().x, cur.getSize ().y), sf::Vector2u (cur.getSize ().x / 2, cur.getSize ().y / 2));
-
-	window.setMouseCursor (cursor);
-
-	while (window.isOpen ())
+	while (window -> isOpen ())
 
 	{
 
 		sf::Event event;
 
-		while (window.pollEvent (event))
+		while (window -> pollEvent (event))
 
 		{
 
-			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed (sf::Keyboard::Escape)) window.close ();
+			if (event.type == sf::Event::Closed || sf::Keyboard::isKeyPressed (sf::Keyboard::Escape)) window -> close ();
 
 			if (event.type == sf::Event::KeyPressed)
 
@@ -658,21 +683,37 @@ int main ()
 
 				}
 
+				if (sf::Keyboard::isKeyPressed (sf::Keyboard::Tab))
+
+				{
+
+					debugMode (&manager);
+
+				}
+
+				if (sf::Keyboard::isKeyPressed (sf::Keyboard::E))
+
+				{
+
+					manager.addObject (new Enemy ());
+
+				}
+
 			}
 
 			manager.processEvents (event);
 
 		}
 
-		if (window.isOpen () && GetForegroundWindow () != window.getSystemHandle ()) pause (&manager);
+		if (window -> isOpen () && GetForegroundWindow () != window -> getSystemHandle ()) pause (&manager);
 
 		Player* player = getObject <Player> (&manager);
 
-		if (player->health_ <= 0) window.close ();
+		if (player->health_ <= 0) window -> close ();
 
 		manager.run ();
 
-		window.display ();
+		window -> display ();
 
 	}
 
@@ -1202,11 +1243,38 @@ void Enemy::control ()
 
 	{
 
-		if (floor (rnd (0, COIN_SPAWNING_FREQ)) == 1) manager_->addObject (new Coin{ x_, y_ });
+		if (floor (rnd (0, COIN_SPAWNING_FREQ)) == 1)
 
-		else if (floor (rnd (0, FOOD_SPAWNING_FREQ)) == 1) manager_->addObject (new Food{ x_, y_ });
+		{
 
-		else if (floor (rnd (0, MEDKIT_SPAWNING_FREQ)) == 1) manager_->addObject (new Medkit{ x_, y_ });
+			manager_->addObject (new Coin{ x_, y_ });
+
+			SoundPlayer* sound = SManager->getSound (SoundItemSpawn);
+			sound->play ();
+
+		}
+
+		else if (floor (rnd (0, FOOD_SPAWNING_FREQ)) == 1)
+
+		{
+
+			manager_->addObject (new Food{ x_, y_ });
+
+			SoundPlayer* sound = SManager->getSound (SoundItemSpawn);
+			sound->play ();
+
+		}
+
+		else if (floor (rnd (0, MEDKIT_SPAWNING_FREQ)) == 1)
+
+		{
+
+			manager_->addObject (new Medkit{ x_, y_ });
+
+			SoundPlayer* sound = SManager->getSound (SoundItemSpawn);
+			sound->play ();
+
+		}
 
 		reset ();
 
@@ -1403,10 +1471,24 @@ void ObjectManager::UpdateObjects ()
 
 //----------------------------------------------------------------
 
+void ObjectManager::update ()
+
+{
+
+	sf::Cursor cursor;
+	cursor.loadFromPixels (cursor_.getPixelsPtr (), sf::Vector2u (cursor_.getSize ().x, cursor_.getSize ().y), sf::Vector2u (cursor_.getSize ().x / 2, cursor_.getSize ().y / 2));
+
+	window_->setMouseCursor (cursor);
+
+}
+
+//----------------------------------------------------------------
+
 void ObjectManager::run ()
 
 {
 
+	update ();
 	drawObjects ();
 	moveObjects ();
 	controlObjects ();
@@ -1605,6 +1687,16 @@ void ObjectManager::setBackground (sf::Color background)
 
 //----------------------------------------------------------------
 
+void ObjectManager::setCursor (sf::Image * cursor)
+
+{
+
+	cursor_ = *cursor;
+
+}
+
+//----------------------------------------------------------------
+
 void ObjectManager::remove ()
 
 {
@@ -1747,16 +1839,6 @@ void HealthBar::start_animation (float start, float end, float speed)
 
 //----------------------------------------------------------------
 
-double rnd (double from, double to)
-
-{
-
-	return from + 1.0 * rand () / RAND_MAX * (to - from);
-
-}
-
-//----------------------------------------------------------------
-
 double angle (double x0, double y0, double x1, double y1)
 
 {
@@ -1889,9 +1971,13 @@ void pause (ObjectManager* manager)
 
 	text.setPosition (wWidth / 2 - bounds.width / 2, wHeight / 2 - bounds.height / 2);
 
-	for (int a = 0; a <= 100; a += 3)
+	int a = 0;
+
+	for (a = a; a <= 100; a += 3)
 
 	{
+
+		manager->update ();
 
 		manager->UpdateObjects ();
 		manager->drawObjects ();
@@ -1911,7 +1997,17 @@ void pause (ObjectManager* manager)
 
 	{
 
-		manager->window_->clear (sf::Color (40, 40, 40));
+		manager->update ();
+
+		manager->UpdateObjects ();
+		manager->drawObjects ();
+
+		rect.setFillColor (sf::Color (0, 0, 0, a));
+		text.setFillColor (sf::Color (255, 255, 255, 255.0 / 100.0 * a));
+
+		manager->window_->draw (rect);
+		manager->window_->draw (text);
+		manager->window_->display ();
 
 		sf::Event event;
 
@@ -1933,15 +2029,17 @@ void pause (ObjectManager* manager)
 
 		}
 
+		manager->window_->display ();
+
 	}
 
 	printf ("%s, Continued\n", __PRETTY_FUNCTION__);
 
-	for (int a = 100; a >= 0; a -= 3)
+	for (a = a; a >= 0; a -= 3)
 
 	{
 
-		manager->UpdateObjects ();
+		manager->update ();
 		manager->drawObjects ();
 
 		rect.setFillColor (sf::Color (0, 0, 0, a));
@@ -1954,6 +2052,169 @@ void pause (ObjectManager* manager)
 	}
 
 }
+
+//-----------------------------------------------------------------------------
+
+void debugMode (ObjectManager* manager)
+
+{
+
+	printf ("%s: Debug mode activated\n", __PRETTY_FUNCTION__);
+
+	manager -> setCursor (&ResManager -> getImage (ImageDebugCursor));
+
+	bool done = false;
+
+	while (!done)
+
+	{
+
+		manager->update ();
+
+		manager->window_->clear (manager -> background_);
+
+		for (int n = 0; n < OBJECTS_MAX; n++)
+
+		{
+
+			if (!manager->objects_[n]) continue;
+
+			manager->objects_[n]->draw ();
+
+			double x = manager->objects_[n]->x_;
+			double y = manager->objects_[n]->y_;
+			double r = manager->objects_[n]->r_;
+
+			sf::CircleShape circle;
+			circle.setFillColor (sf::Color::Transparent);
+			circle.setOutlineColor (sf::Color::White);
+			circle.setOutlineThickness (1);
+			circle.setRadius (r);
+			circle.setPosition (x - r, y - r);
+
+			manager->window_->draw (circle);
+
+			sf::RectangleShape rect;
+			rect.setPosition (x - r, y);
+			rect.setFillColor (sf::Color::White);
+			rect.setSize (sf::Vector2f (r * 2, 2));
+
+			manager->window_->draw (rect);
+
+			rect.setPosition (x, y - r);
+			rect.setFillColor (sf::Color::White);
+			rect.setSize (sf::Vector2f (2, r * 2));
+
+			manager->window_->draw (rect);
+
+		}
+
+		sf::Font font;
+		font = FManager->getFont (FontVAGWorld);
+
+		sf::Text text;
+		text.setFont (font);
+		text.setFillColor (sf::Color (0, 149, 255));
+		text.setString ("[Debug mode]");
+		text.setCharacterSize (20);
+		text.setPosition (2, 2);
+
+		manager->window_->draw (text);
+
+		char str[100] = "";
+		sprintf_s (str, "Objects amount: %d", manager->objectsAmount ());
+
+		text.setString (str);
+		text.setPosition (2, 22);
+
+		manager->window_->draw (text);
+
+		sprintf_s (str, "Game started %d seconds ago", (GetTickCount () - StartTime) / 1000);
+
+		text.setString (str);
+		text.setPosition (2, 44);
+
+		manager->window_->draw (text);
+
+		sf::Event event;
+
+		while (manager->window_->pollEvent (event))
+
+		{
+
+			if (event.type == sf::Event::Closed)
+
+			{
+
+				done = true;
+				manager->window_->close ();
+
+			}
+
+			if (event.type == sf::Event::KeyPressed)
+
+			{
+
+				if (sf::Keyboard::isKeyPressed (sf::Keyboard::Tab)) done = true;
+
+				if (sf::Keyboard::isKeyPressed (sf::Keyboard::Escape))
+
+				{
+
+					done = true;
+					manager->window_->close ();
+
+				}
+
+			}
+
+		}
+
+		if (sf::Mouse::isButtonPressed (sf::Mouse::Left))
+
+		{
+
+			sf::Vector2i mPos = sf::Mouse::getPosition (*manager->window_);
+
+			AbstractObject obj (TypeNone, mPos.x, mPos.y, 0, 0, 1, sf::Color::Transparent);
+
+			for (int n = 0; n < OBJECTS_MAX; n++)
+
+			{
+
+				if (!manager->objects_[n]) continue;
+
+				if (collisionDetection (&obj, manager->objects_[n]))
+
+				{
+
+					if (manager->objects_[n]->getType () != TypePlayer) manager->objects_[n]->remove ();
+
+					else
+
+					{
+
+						MessageBox (manager->window_->getSystemHandle (), L"You may not remove player.", L"Error", MB_OK | MB_ICONWARNING);
+
+					}
+
+				}
+
+			}
+
+		}
+
+		manager->window_->display ();
+
+	}
+
+	manager -> setCursor (& ResManager->getImage (ImageCursor));
+
+	printf ("%s: Debug mode stopped\n", __PRETTY_FUNCTION__);
+
+}
+
+//-----------------------------------------------------------------------------
 
 void Hit (AbstractObject* obj1, AbstractObject* obj2)
 
@@ -2005,6 +2266,9 @@ void hit_PlayerCoin (AbstractObject* obj1, AbstractObject* obj2)
 
 	obj2->remove ();
 
+	SoundPlayer* sound = SManager->getSound (SoundCoin);
+	sound->play ();
+
 }
 
 void hit_PlayerFood (AbstractObject* obj1, AbstractObject* obj2)
@@ -2017,6 +2281,9 @@ void hit_PlayerFood (AbstractObject* obj1, AbstractObject* obj2)
 
 	obj2->remove ();
 
+	SoundPlayer* sound = SManager->getSound (SoundItemTake);
+	sound->play ();
+
 }
 
 void hit_PlayerMedkit (AbstractObject* obj1, AbstractObject* obj2)
@@ -2028,6 +2295,9 @@ void hit_PlayerMedkit (AbstractObject* obj1, AbstractObject* obj2)
 	player->addHealth (100);
 
 	obj2->remove ();
+
+	SoundPlayer* sound = SManager->getSound (SoundItemTake);
+	sound->play ();
 
 }
 
