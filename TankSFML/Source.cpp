@@ -10,7 +10,7 @@
 #include "ResourceManager.h"
 #include "FontManager.h"
 #include "SoundManager.h"
-#include "C:\Lib\ExtraUtilits\ExtraUtilits.h"
+#include "ExtraUtilits.h"
 
 using eu::rnd;
 
