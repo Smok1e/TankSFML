@@ -135,6 +135,8 @@ SoundManager::~SoundManager ()
 
 {
 
+	delete (errorSound_);
+
 	for (int n = 0; n < SoundAmount; n++)
 
 	{

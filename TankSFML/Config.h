@@ -20,3 +20,5 @@ const int MEDKIT_SPAWNING_FREQ = 7;
 const int FPS_LIMIT = 60;
 
 const int PATH_MAX = 256;
+
+const bool ShowConsole = false;

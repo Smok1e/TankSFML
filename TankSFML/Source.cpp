@@ -3,6 +3,7 @@
 #define __PRETTY_FUNCTION__ __FUNCSIG__
 #define _RESOURCES "Resources\\"
 #define NOMINMAX
+//#define _EU_ALLOC_TRACE
 #include <Windows.h>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -164,7 +165,7 @@ AbstractObject::AbstractObject (int type, double x, double y, double vx, double 
 
 	color_  (color),
 
-	manager_ (NULL)
+	manager_ (nullptr)
 
 {}
 
@@ -300,17 +301,19 @@ struct Bullet : AbstractObject
 
 {
 
-	Bullet (double x, double y, double vx, double vy);
+	double speed_;
+
+	Bullet (double x, double y, double vx, double vy, double speed);
 
 	virtual void move ();
 
-	virtual void remove ();
-
 };
 
-Bullet::Bullet (double x, double y, double vx, double vy) :
+Bullet::Bullet (double x, double y, double vx, double vy, double speed) :
 
-	AbstractObject (TypeBullet, x, y, vx, vy, 3, sf::Color::White)
+	AbstractObject (TypeBullet, x, y, vx, vy, 3, sf::Color::White),
+
+	speed_ (speed)
 
 {}
 
@@ -393,8 +396,6 @@ struct EnemyBullet : AbstractObject
 	EnemyBullet (double x, double y, double vx, double vy);
 
 	virtual void move () override;
-
-	virtual void remove () override;
 
 };
 
@@ -615,6 +616,14 @@ int main ()
 
 {
 
+	if (!ShowConsole)
+
+	{
+
+		ShowWindow (GetConsoleWindow (), SW_HIDE);
+
+	}
+
 	sf::RenderWindow window (sf::VideoMode (wWidth, wHeight), "Tank");
 
 	ResourceManager resManager (Resources, _RESOURCES"Images");
@@ -626,7 +635,14 @@ int main ()
 	SoundManager soundManager (Sounds, _RESOURCES"Sound");
 	SManager = &soundManager;
 
+	sf::Image icon = ResManager->getImage (ImageIcon);
+	window.setIcon (icon.getSize ().x, icon.getSize ().y, icon.getPixelsPtr ());
+
+	window.setFramerateLimit (FPS_LIMIT);
+
 	run (&window);
+
+	return 0;
 
 }
 
@@ -639,15 +655,7 @@ int run (sf::RenderWindow * window)
 	ObjectManager manager (window);
 	manager.setBackground (sf::Color (40, 40, 40));
 
-	window -> setFramerateLimit (FPS_LIMIT);
-
-	sf::Image icon = ResManager->getImage (ImageIcon);
-
-	window -> setIcon (icon.getSize ().x, icon.getSize ().y, icon.getPixelsPtr ());
-
-	Player* player = new Player{ wWidth / 2, wHeight / 2 };
-
-	manager.addObject (player);
+	manager.addObject (new Player{ wWidth / 2, wHeight / 2 });
 
 	for (int n = 0; n < ENEMY_N; n++) manager.addObject (new Enemy);
 
@@ -704,12 +712,6 @@ int run (sf::RenderWindow * window)
 			manager.processEvents (event);
 
 		}
-
-		if (window -> isOpen () && GetForegroundWindow () != window -> getSystemHandle ()) pause (&manager);
-
-		Player* player = getObject <Player> (&manager);
-
-		if (player->health_ <= 0) window -> close ();
 
 		manager.run ();
 
@@ -999,7 +1001,9 @@ void Player::control ()
 			double vx = a / c;
 			double vy = b / c;
 
-			manager_->addObject (new Bullet{ x_ + vx * 45, y_ + vy * 45, vx * 10 + rnd (-0.5, 0.5), vy * 10 + rnd (-0.5, 0.5) });
+			double speed = (manager_->level_ / 3) + 5;
+
+			manager_->addObject (new Bullet{ x_ + vx * 45, y_ + vy * 45, vx + rnd (-0.1, 0.1), vy + rnd (-0.1, 0.1), speed});
 
 			shoot_cooldown_counter = 0;
 
@@ -1023,6 +1027,8 @@ void Player::update ()
 
 	animation_.setFrame (frame);
 
+	if (health_ <= 0) manager_->window_->close ();
+
 }
 
 //----------------------------------------------------------------
@@ -1031,7 +1037,7 @@ void Player::move ()
 
 {
 
-	shoot_cooldown = 20 - manager_->level_ * 2;
+	shoot_cooldown = 20 - (manager_->level_ / 2);
 
 	AbstractObject::move();
 
@@ -1091,25 +1097,18 @@ void Bullet::move ()
 
 {
 
-	x_ += vx_;
-	y_ += vy_;
+	x_ += vx_ * speed_;
+	y_ += vy_ * speed_;
 
-	//if (x_ > wWidth - r_ || x_ < r_) vx_ = -vx_;
-	//if (y_ > wHeight - r_ || y_ < r_) vy_ = -vy_;
+	if (x_ >= wWidth - r_ || x_ < r_ || y_ >= wHeight - r_ || y_ < r_)
 
-	if (x_ >= wWidth - r_ || x_ < r_ || y_ >= wHeight - r_ || y_ < r_) remove ();
+	{
 
-}
+		manager_->addObject (new Explosion (x_, y_));
 
-//----------------------------------------------------------------
+		remove ();
 
-void Bullet::remove ()
-
-{
-
-	manager_->addObject (new Explosion{ x_, y_ });
-
-	AbstractObject::remove ();
+	}
 
 }
 
@@ -1233,9 +1232,7 @@ void Enemy::control ()
 		double vx = a / c;
 		double vy = b / c;
 
-		EnemyBullet* bullet = new EnemyBullet{ x_ + vx * 24, y_ + vy * 24, vx, -vy };
-
-		manager_->addObject (bullet);
+		manager_->addObject (new EnemyBullet{ x_ + vx * 24, y_ + vy * 24, vx, -vy });
 
 	}
 
@@ -1320,21 +1317,11 @@ void EnemyBullet::move ()
 
 	{
 
+		manager_->addObject (new Explosion (x_, y_));
+
 		remove ();
 
 	}
-
-}
-
-//----------------------------------------------------------------
-
-void EnemyBullet::remove ()
-
-{
-
-	manager_->addObject (new Explosion (x_, y_));
-
-	AbstractObject::remove ();
 
 }
 
@@ -1494,6 +1481,8 @@ void ObjectManager::run ()
 	controlObjects ();
 	UpdateObjects ();
 	checkCollision ();
+
+	if (window_->isOpen () && GetForegroundWindow () != window_->getSystemHandle ()) pause (this);
 
 }
 
@@ -1998,16 +1987,13 @@ void pause (ObjectManager* manager)
 	{
 
 		manager->update ();
-
-		manager->UpdateObjects ();
 		manager->drawObjects ();
 
-		rect.setFillColor (sf::Color (0, 0, 0, a));
-		text.setFillColor (sf::Color (255, 255, 255, 255.0 / 100.0 * a));
+		rect.setFillColor (sf::Color (0, 0, 0, 100));
+		text.setFillColor (sf::Color::White);
 
 		manager->window_->draw (rect);
 		manager->window_->draw (text);
-		manager->window_->display ();
 
 		sf::Event event;
 
@@ -2060,6 +2046,14 @@ void debugMode (ObjectManager* manager)
 {
 
 	printf ("%s: Debug mode activated\n", __PRETTY_FUNCTION__);
+
+	if (!ShowConsole)
+
+	{
+
+		ShowWindow (GetConsoleWindow (), SW_SHOW);
+
+	}
 
 	manager -> setCursor (&ResManager -> getImage (ImageDebugCursor));
 
@@ -2210,6 +2204,14 @@ void debugMode (ObjectManager* manager)
 
 	manager -> setCursor (& ResManager->getImage (ImageCursor));
 
+	if (!ShowConsole)
+
+	{
+
+		ShowWindow (GetConsoleWindow (), SW_HIDE);
+
+	}
+
 	printf ("%s: Debug mode stopped\n", __PRETTY_FUNCTION__);
 
 }
@@ -2238,6 +2240,8 @@ void hit_PlayerBullet (AbstractObject* obj1, AbstractObject* obj2)
 
 	player->addHealth (-(rnd (2, 6)));
 
+	obj2->manager_->addObject (new Explosion (obj2->x_, obj2->y_));
+
 	obj2->remove ();
 
 }
@@ -2249,6 +2253,8 @@ void hit_PlayerEnemyBullet (AbstractObject* obj1, AbstractObject* obj2)
 	Player* player = checkType <Player> (obj1);
 
 	player->addHealth (-15);
+
+	obj2 -> manager_->addObject (new Explosion (obj2 -> x_, obj2 -> y_));
 
 	obj2->remove ();
 
@@ -2313,6 +2319,8 @@ void hit_EnemyBullet (AbstractObject* obj1, AbstractObject* obj2)
 
 	enemy->setPosition (enemy->x_ + bullet->vx_, enemy->y_ + bullet->vy_);
 
+	bullet -> manager_->addObject (new Explosion (bullet -> x_, bullet -> y_));
+
 	bullet->remove ();
 
 }
@@ -2320,6 +2328,8 @@ void hit_EnemyBullet (AbstractObject* obj1, AbstractObject* obj2)
 void hit_BulletBullet (AbstractObject* obj1, AbstractObject* obj2)
 
 {
+
+	obj1->manager_->addObject (new Explosion (obj1 -> x_, obj1 -> y_));
 
 	obj1->remove ();
 	obj2->remove ();

@@ -1,138 +1,137 @@
 ﻿  Source.cpp
-W:\TankSFML\TankSFML\Source.cpp(103,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(104,15): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
 W:\TankSFML\TankSFML\HitTable.h(21,12): warning C4180: qualifier applied to function type has no meaning; ignored
-W:\TankSFML\TankSFML\Source.cpp(618,50): warning C4244: 'argument': conversion from 'const double' to 'unsigned int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(618,42): warning C4244: 'argument': conversion from 'const double' to 'unsigned int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(732,48): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(627,50): warning C4244: 'argument': conversion from 'const double' to 'unsigned int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(627,42): warning C4244: 'argument': conversion from 'const double' to 'unsigned int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(734,48): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(732,39): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(734,39): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(733,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(851,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(735,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(853,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=int
           ]
-W:\TankSFML\TankSFML\Source.cpp(851,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(853,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=int
           ]
-W:\TankSFML\TankSFML\Source.cpp(851,29): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(853,29): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=int
           ]
-W:\TankSFML\TankSFML\Source.cpp(862,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(862,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(876,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(864,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(864,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(878,50): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=int
           ]
-W:\TankSFML\TankSFML\Source.cpp(876,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(878,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=int
           ]
-W:\TankSFML\TankSFML\Source.cpp(876,29): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(878,29): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=int
           ]
-W:\TankSFML\TankSFML\Source.cpp(885,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(885,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(939,62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(939,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(940,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(940,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(941,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1022,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1084,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1152,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1152,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1153,33): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(887,25): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(887,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(941,62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(941,38): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(942,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(942,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(943,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1026,12): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1090,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1151,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1151,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1152,33): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(1153,30): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1152,30): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(1158,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1158,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1159,49): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1157,23): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1157,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1158,49): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(1159,38): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1158,38): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(1367,127): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1412,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1412,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1728,40): warning C4305: 'argument': truncation from 'double' to 'float'
-W:\TankSFML\TankSFML\Source.cpp(1752,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1752,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1753,38): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1354,127): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1399,71): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1399,42): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1717,40): warning C4305: 'argument': truncation from 'double' to 'float'
+W:\TankSFML\TankSFML\Source.cpp(1741,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1741,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1742,38): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(1753,30): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1742,30): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(1757,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1765,36): warning C4244: '=': conversion from 'double' to 'sf::Uint8', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1766,36): warning C4244: '=': conversion from 'double' to 'sf::Uint8', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1767,36): warning C4244: '=': conversion from 'double' to 'sf::Uint8', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1769,9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1770,9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1773,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1773,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1774,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1746,8): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1754,36): warning C4244: '=': conversion from 'double' to 'sf::Uint8', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1755,36): warning C4244: '=': conversion from 'double' to 'sf::Uint8', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1756,36): warning C4244: '=': conversion from 'double' to 'sf::Uint8', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1758,9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1759,9): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1762,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1762,21): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1763,42): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(1791,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1791,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1972,63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1972,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(1986,62): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2006,62): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2046,62): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2092,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2093,33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2093,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2098,29): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2098,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2100,34): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1780,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1780,20): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1961,63): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1961,31): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(1975,62): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2032,62): warning C4244: 'argument': conversion from 'double' to 'sf::Uint8', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2086,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2087,33): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2087,26): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2092,29): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2092,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2094,34): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(2104,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2104,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2106,37): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2098,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2098,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2100,37): warning C4244: 'argument': conversion from 'double' to 'T', possible loss of data
           with
           [
               T=float
           ]
-W:\TankSFML\TankSFML\Source.cpp(2239,21): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2263,25): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-W:\TankSFML\TankSFML\Source.cpp(2312,31): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2241,21): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2269,25): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+W:\TankSFML\TankSFML\Source.cpp(2318,31): warning C4244: '-=': conversion from 'double' to 'int', possible loss of data
   TankSFML.vcxproj -> W:\TankSFML\Debug\TankSFML.exe
